@@ -14,8 +14,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UsuarioService{
     @Autowired
     UsuarioRespository usuarioRespository;
@@ -42,7 +44,7 @@ public class UsuarioService{
 
         String passwordHashed = lista.get(0).getPassword();        
 
-        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2d);
         if (argon2.verify(passwordHashed, usuario.getPassword())){
             return lista.get(0);
         }
