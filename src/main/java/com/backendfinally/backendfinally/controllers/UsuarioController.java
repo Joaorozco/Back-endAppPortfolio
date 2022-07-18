@@ -18,6 +18,7 @@ import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.http.MediaType;
 
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
 
@@ -29,22 +30,23 @@ public class UsuarioController implements UsuarioServiceImp{
     private JWTUtils jwtUtil;
     
     
-    @RequestMapping(value = "api/usuario", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "api/usuario")
     public ArrayList<UsuarioModel> obtenerUsuarios(){
         return usuarioService.obtenerUsuarios();
     }
     
-    @RequestMapping(value = "api/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "api/register", method = RequestMethod.POST)
     @Override
     @CrossOrigin(origins = "http://localhost:4200")
+    @ResponseBody
     public void registrar(@RequestBody UsuariosRegister usuario) {
-        Argon2 argon2= Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        Argon2 argon2= Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2d);
         String hash = argon2.hash(1, 1024, 1, usuario.getPassword());
         usuario.setPassword(hash);
         usuarioService.registrar(usuario);
     }
 
-    @RequestMapping(value = "api/login", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "api/login", method = RequestMethod.POST)
     public String login(@RequestBody UsuariosRegister usuario) {
         UsuariosRegister usuarioLogueado = usuarioService.obtenerDatosPorCredenciales(usuario);
         if(usuarioLogueado != null){

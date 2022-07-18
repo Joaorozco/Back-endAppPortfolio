@@ -15,8 +15,8 @@ public class UsuariosRegister {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column( unique = true, nullable = false)
     private Long id;  
-    private String nombreCompleto;  
-    private String email;
+    private String username;  
+    private String useremail;
     private String password;
 
     //Constructor
@@ -26,8 +26,8 @@ public class UsuariosRegister {
 
     public UsuariosRegister(Long id, String nombreCompleto, String email, String password) {
         this.id = id;
-        this.nombreCompleto = nombreCompleto;
-        this.email = email;
+        this.username = nombreCompleto;
+        this.username = email;
         this.password = password;
     }
 
@@ -40,19 +40,19 @@ public class UsuariosRegister {
     }
 
     public String getNombreCompleto() {
-        return nombreCompleto;
+        return username;
     }
 
     public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
+        this.username = nombreCompleto;
     }
 
     public String getEmail() {
-        return email;
+        return useremail;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.useremail = email;
     }
 
     public String getPassword() {
