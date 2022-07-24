@@ -13,10 +13,10 @@ import de.mkammerer.argon2.Argon2Factory;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Repository
 @Transactional
 public class UsuarioService{
     @Autowired
@@ -34,9 +34,9 @@ public class UsuarioService{
     }  
     
     public UsuariosRegister obtenerDatosPorCredenciales(UsuariosRegister usuario){
-        String query = "FROM UsuariosRegister WHERE email = :email";
+        String query = "FROM UsuariosRegister WHERE useremail = :useremail";
         List<UsuariosRegister> lista = entityManager.createQuery(query)
-                .setParameter("useremail", usuario.getEmail())
+                .setParameter("useremail", usuario.getUseremail())
                 .getResultList();
         if (lista.isEmpty()){
             return null;
